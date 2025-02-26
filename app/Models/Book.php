@@ -4,19 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['username', 'password', 'name', 'email', 'phone'];
+    protected $fillable = ['title', 'writer', 'user_id', 'category_id', 'publisher', 'year'];
 
-    protected $hidden = ['password'];
-
-    public function books()
+    public function user()
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function loans()
